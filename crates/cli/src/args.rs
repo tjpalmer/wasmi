@@ -95,6 +95,10 @@ pub struct Args {
     /// Arguments given to the Wasm module or the invoked function.
     #[clap(value_name = "ARGS")]
     func_args: Vec<String>,
+
+    /// Prevents excess diagnostic output.
+    #[clap(long = "quiet")]
+    quiet: bool,
 }
 
 /// The chosen Wasmi compilation mode.
@@ -140,6 +144,11 @@ impl Args {
     /// Returns `true` if lazy Wasm compilation is enabled.
     pub fn compilation_mode(&self) -> wasmi::CompilationMode {
         self.compilation_mode.into()
+    }
+
+    /// Returns `true` if quiet mode is enabled.
+    pub fn quiet(&self) -> bool {
+        self.quiet
     }
 
     /// Pre-opens all directories given in `--dir` and returns them for use by the [`WasiCtx`].
